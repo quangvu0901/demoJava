@@ -7,6 +7,7 @@ import dev.tran_vux.demo.entity.Room;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -33,9 +34,26 @@ public class RoomController {
 
     // Get list room
     @GetMapping
-    public List<Room> getRooms(){
+    public List<Room> getRooms(@RequestParam(required = false) Boolean status){
+        if (status != null){
+            return findRoomByStatus(status);
+        }
+
         return rooms;
     }
+
+    List<Room> findRoomByStatus(boolean status){
+        List<Room> result = new LinkedList<>();
+
+        for (Room room:rooms){
+            if (room.isStatus() == status){
+                result.add(room);
+            }
+        }
+
+        return result;
+    }
+
 
     // Get one hotel
     @GetMapping("/roomId")
