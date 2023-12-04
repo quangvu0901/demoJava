@@ -38,7 +38,6 @@ public class RoomController {
         if (status != null){
             return findRoomByStatus(status);
         }
-
         return rooms;
     }
 
@@ -56,13 +55,13 @@ public class RoomController {
 
 
     // Get one hotel
-    @GetMapping("/roomId")
+    @GetMapping("/{roomId}")
     public Room getRoom(@PathVariable String roomId){
         return findRoomById(roomId);
     }
 
     // Update room
-    @PutMapping("/roomId")
+    @PutMapping("/{roomId}")
     public Room updateRoom(@PathVariable String roomId,
                            @RequestBody UpdateRoom request){
 
@@ -81,19 +80,19 @@ public class RoomController {
     }
 
     // Delete room
-    @DeleteMapping("/roomId")
+    @DeleteMapping("/{roomId}")
     public ResponseDto deleteRoom(@PathVariable String roomId){
         Room room = findRoomById(roomId);
         if (room == null){
             return new ResponseDto(false,"Room Not Found!");
         }
-        rooms.remove(roomId);
+        rooms.remove(room);
         return new ResponseDto(true,"Room Deleted!");
     }
 
     // Get room by id
     private Room findRoomById(String roomId){
-        for (Room room:rooms){
+        for (Room room: rooms){
             if (room.getRoomId().equals(roomId)){
                 return room;
             }

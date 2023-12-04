@@ -43,7 +43,7 @@ public class EmployeeController {
         } else if (roll == null && phone != null) {
             return findEmployeeByPhone(phone);
         } else if (roll != null && phone != null) {
-            return findEmployeeByRollAndPhone(roll,phone);
+            return findEmployeeByRollAndPhone(roll, phone);
         }
         return employees;
     }
@@ -52,7 +52,7 @@ public class EmployeeController {
         List<Employee> result = new LinkedList<>();
 
         for (Employee employee:employees){
-            if (employee.getRoll() == roll){
+            if (employee.getRoll().equals(roll)){
                 result.add(employee);
             }
         }
@@ -64,7 +64,7 @@ public class EmployeeController {
         List<Employee> result = new LinkedList<>();
 
         for (Employee employee:employees){
-            if (employee.getPhone() == phone){
+            if (employee.getPhone().equals(phone)){
                 result.add(employee);
             }
         }
@@ -76,7 +76,7 @@ public class EmployeeController {
         List<Employee> result = new LinkedList<>();
 
         for (Employee employee:employees){
-            if (employee.getRoll() == roll && employee.getPhone() == phone){
+            if (employee.getRoll().equals(roll)  && employee.getPhone().equals(phone)){
                 result.add(employee);
             }
         }
