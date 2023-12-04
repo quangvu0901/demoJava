@@ -7,6 +7,7 @@ import dev.tran_vux.demo.entity.Employee;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -35,8 +36,52 @@ public class EmployeeController {
 
     // Get list employee
     @GetMapping
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees(@RequestParam(required = false) Integer roll,
+                                       @RequestParam(required = false) String phone){
+        if (roll != null && phone == null){
+            return findEmployeeByRoll(roll);
+        } else if (roll == null && phone != null) {
+            return findEmployeeByPhone(phone);
+        } else if (roll != null && phone != null) {
+            return findEmployeeByRollAndPhone(roll,phone);
+        }
         return employees;
+    }
+
+    List<Employee> findEmployeeByRoll(Integer roll){
+        List<Employee> result = new LinkedList<>();
+
+        for (Employee employee:employees){
+            if (employee.getRoll() == roll){
+                result.add(employee);
+            }
+        }
+
+        return result;
+    }
+
+    List<Employee> findEmployeeByPhone(String phone){
+        List<Employee> result = new LinkedList<>();
+
+        for (Employee employee:employees){
+            if (employee.getPhone() == phone){
+                result.add(employee);
+            }
+        }
+
+        return result;
+    }
+
+    List<Employee> findEmployeeByRollAndPhone(Integer roll, String phone){
+        List<Employee> result = new LinkedList<>();
+
+        for (Employee employee:employees){
+            if (employee.getRoll() == roll && employee.getPhone() == phone){
+                result.add(employee);
+            }
+        }
+
+        return result;
     }
 
     // Get employee by id
